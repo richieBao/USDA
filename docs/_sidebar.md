@@ -29,6 +29,7 @@
     * [2.22 卷积神经网络，可视化卷积层/卷积核,tensorboard,torchvision.models与VGG网络](./notebook_code/CNN.md)
     * [2.23 对象检测(Mask R-CNN)与人流量估算；图像分割（torchvision.models）与城市空间内容统计，及关联网络结构](./notebook_code/R_CNN.md)
     * [2.24 开放神经网络交换-ONNX(Open Neural Network,Exchage)，ONNX，Cityscapes数据集，DUC(Dense Upsampling Convolution)图像分割与城市空间要素组成，时空量度，绿视率](./notebook_code/DUC.md)
+    * [2.25 Sentinel-2，(聚类)土地分类，VGG16，SegNet遥感影像语义分割/解译，超像素级分割(superpixels-segmentation)，高空分辨率特征尺度界定，及尺度的深度流动线/特征区域的延申](./notebook_code/segnet.md)
 
 * 检索
     * [代码工具](./markdown/codeToolIdx.md)

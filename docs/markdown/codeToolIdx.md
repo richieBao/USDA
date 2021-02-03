@@ -298,3 +298,27 @@
 199. function - DUC图像分割，及预测图像保存. `sementicSeg_DUC_pred(DUC_output_root,img_fps,preprocess,predict)`
 200. function - 读取DUC语义分割结果保存的'KITTI_DUC_confi.pkl'和'KITTI_DUC_raw.pkl'文件，用于位置图像对象/语义分割类别频数统计. `DUC_pred_frequency_moment(KITTI_DUC_raw_fp,KITTI_DUC_confi_fp)`
 201. function - 计算DataFrame每行的信息熵，用于df.apply(lambda). `entroy_df_row(row)`
+
+## 25. Sentinel-2，(聚类)土地分类，VGG16，SegNet遥感影像语义分割/解译，超像素级分割(superpixels-segmentation)，高空分辨率特征尺度界定，及尺度的深度流动线/特征区域的延申
+
+
+202. function - 将经纬度坐标转换为指定zoom level缩放级别下，金子塔中瓦片的坐标/ code migrated. `deg2num(lat_deg, lon_deg, zoom)`
+203.  function - 根据获取的地图边界坐标[左下角精度，左下角维度，右上角精度，右上角维度]计算中心点坐标 /code migrated. `centroid(bounds)`
+204. function - Sentinel-2波段合成显示。需要deg2num(lat_deg, lon_deg, zoom)和centroid(bounds)函数. `Sentinel2_bandsComposite_show(RGB_bands,zoom=10,tilesize=512,figsize=(10,10))`
+205. funciton - 获取sentinel-2波段文件路径，和打印主要信息. `Sentinel2_bandFNs(MTD_MSIL2A_fn)`
+206. 数值标签转换为RGB颜色标签 Numeric labels to RGB-color encoding /code migrated. `convert_to_color(arr_2d, palette=palette)`
+207. RGB颜色标签转换为数值标签（灰度图） RGB-color encoding to grayscale labels /code migrated. ` convert_from_color(arr_3d, palette=invert_palette)`
+208. 给定窗口大小，随机提取部分图像 Extract of 2D random patch of shape window_shape in the image   /code migrated. `get_random_pos(img, window_shape`
+209. 定义损失函数——2D版交叉熵损失 2D version of the cross entropy loss  /code migrated. `CrossEntropy2d(input, target, weight=None, size_average=True)`
+210. 定义预测精度 /code migrated. `accuracy(input, target)`
+211. 给定步幅，窗口形状，滑动过整幅图像，迭代计算窗口所在图像x,y位置值，返回每一切分图像(patch)的x,y坐标值和高宽大小，即yield返回值。参数step可以控制切分窗口叠合的程度 Slide a window_shape window across the image with a stride of step /code migrated. `sliding_window(top, step=10, window_size=(20,20))`
+212. 计算图像滑动给定窗口大小的数量 Count the number of windows in an image /code migrated. `count_sliding_window(top, step=10, window_size=(20,20))`
+213. Browse an iterator by chunk of n elements /code migrated.  `grouper(n, iterable)`
+214. 预测值度量'  /code migrated `metrics(predictions, gts, label_values=LABELS)`
+215. SegNet测试函数  /code migrated. `test(net, test_ids, all=False, stride=WINDOW_SIZE[0], batch_size=BATCH_SIZE, window_size=WINDOW_SIZE)`
+216. SegNet训练函数 /code migrated. `train(net, optimizer, epochs, scheduler=None, weights=WEIGHTS, save_epoch = 5)`
+217. function - 超像素分割，skimage库felzenszwalb方法。给定scale参数列表，批量计算. `superpixel_segmentation_Felzenszwalb(img,scale_list,sigma=0.5, min_size=50)`
+218. function - 给定包含多个图像分割的一个数组，排布显示分割图像边界。`markBoundaries_layoutShow(segs_array,img,columns,titles,prefix,figsize=(15,10))`
+219. function - 超像素分割，skimage库quickshift方法。给定kernel_size参数列表，批量计算. `superpixel_segmentation_quickshift(img,kernel_sizes, ratio=0.5)`
+220. function - 给定包含多个图像分割的一个数组，排布显示分割图像掩码。`segMasks_layoutShow(segs_array,columns,titles,prefix,cmap='prism',figsize=(20,10))`
+221. function - 多尺度超像素级分割结果叠合频数统计. `multiSegs_stackStatistics(segs,save_fp)`

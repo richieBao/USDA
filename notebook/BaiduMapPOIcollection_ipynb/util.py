@@ -840,8 +840,8 @@ def demo_con_style(a_coordi,b_coordi,ax,connectionstyle):
 flatten_lst=lambda lst: [m for n_lst in lst for m in flatten_lst(n_lst)] if type(lst) is list else [lst] 
 
 
-from data_generator import DataGenerator
-from knee_locator import KneeLocator
+#from data_generator import DataGenerator
+#from knee_locator import KneeLocator
 
 def kneed_lineGraph(x,y):
     import matplotlib.pyplot as plt
@@ -1150,12 +1150,12 @@ def imgs_layoutShow(imgs_root,imgsFn_lst,columns,scale,figsize=(15,10)):
 
     
 #将每批次样本X的形状转换为(batch_size,-1)
-from torch import nn
-class flattenLayer(nn.Module):
-    def __init__(self):
-        super(flattenLayer,self).__init__()
-    def forward(self,x):
-        return x.view(x.shape[0],-1)
+#from torch import nn
+# class flattenLayer(nn.Module):
+#     def __init__(self):
+#         super(flattenLayer,self).__init__()
+#     def forward(self,x):
+#         return x.view(x.shape[0],-1)
 
 def evaluate_accuracy(data_iter, net):
     '''
@@ -1465,3 +1465,28 @@ class dynamicStreetView_visualPerception:
             matches_sequence[i]=matches_temp
         matches_num={k:[len(v) for v in val] for k,val in matches_sequence.items()}
         return matches_num  
+    
+def raster_clip(raster_fp,clip_boundary_fp,save_path):
+   import earthpy.spatial as es
+   import geopandas as gpd
+   from pyproj import CRS
+   import rasterio as rio
+   '''
+   function - 给定裁切边界，批量裁切栅格数据
+
+   Paras:
+   raster_fp - 待裁切的栅格数据文件路径（.tif）,具有相同的坐标投影系统
+   clip_boundary - 用于裁切的边界（.shp，WGS84，无投影）
+
+   return:
+   rasterClipped_pathList - 裁切后的文件路径列表
+   '''
+   clip_bound=gpd.read_file(clip_boundary_fp)
+   with rio.open(raster_fp[0]) as raster_crs:
+       raster_profile=raster_crs.profile
+       clip_bound_proj=clip_bound.to_crs(raster_profile["crs"])
+
+   rasterClipped_pathList=es.crop_all(raster_fp, save_path, clip_bound_proj, overwrite=True) #对所有波段band执行裁切
+   print("finished clipping.")
+   return rasterClipped_pathList   
+    
